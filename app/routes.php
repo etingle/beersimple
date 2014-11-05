@@ -20,55 +20,46 @@ Route::post('output', function()
 {
 
 	$name = Input::file('picture')->getClientOriginalName();
-   	Input::file('picture')->move(storage_path().'/storage/',$name);
+   	Input::file('picture')->move(storage_path()."/images",$name);
    	#check if file is too large/if file is an image
 
-#   	 return Redirect::to('calculate');
+	$response = Unirest::post("https://camfind.p.mashape.com/image_requests",
+  		array(
+    		"X-Mashape-Key" => "Sf3AqcujUtmshQQ0Tdef0VxORqfSp1eBsupjsnyAjx4z8afEta"
+  			),
+  		array(
+    		"image_request[image]" => Unirest::file(storage_path()."/images/".$name),
+    		"image_request[language]" => "en",
+    		"image_request[locale]" => "en_US",
+  			)
+	);
 
-#});
+	$token=$response->body->token;
+	return Redirect::to('loading/'.$token);
 
-
-#Route::get('calculate', function()
-#{
-
-
-
-$response = Unirest::post("https://camfind.p.mashape.com/image_requests",
-  array(
-    "X-Mashape-Key" => "Sf3AqcujUtmshQQ0Tdef0VxORqfSp1eBsupjsnyAjx4z8afEta"
-  ),
-  array(
-    "image_request[image]" => Unirest::file(storage_path()."/storage/".$name),
-    "image_request[language]" => "en",
-    "image_request[locale]" => "en_US",
-  )
-);
-
-sleep(25);
-
-echo "raw\n";
-print_r($response->raw_body);
-echo "header\n";
-print_r($response->headers); // Headers
-
-echo "code\n";
-echo $response->code; 
-echo "body\n";
-print_r($response->body);
-
-$token=$response->body->token;
-
-$response = Unirest::get("https://camfind.p.mashape.com/image_responses/".$token,
-  array(
-    "X-Mashape-Key" => "Sf3AqcujUtmshQQ0Tdef0VxORqfSp1eBsupjsnyAjx4z8afEta"
-  )
-);
-
-print_r($response->body);
-
-print_r($response->status);
-print_r($response->reason);
-
-
-	//return View::make('hello');
 });
+
+
+Route::get('/loading/{token}', function($token)
+{
+	$token='YSuNpC2fSmx4nGUflYgFIw';
+	if (!$token){
+		echo "token doesn't exist";
+		} else {
+
+		$response = Unirest::get("https://camfind.p.mashape.com/image_responses/".$token,
+		  	array(
+    			"X-Mashape-Key" => "Sf3AqcujUtmshQQ0Tdef0VxORqfSp1eBsupjsnyAjx4z8afEta"
+  				)
+		);
+
+	//$status=$response->body->status;
+	$status="test";
+	if ($status != "completed"){
+		return View::make('loading')->with('token',$token);
+		} else {
+		echo $response->body->name;
+		}
+	}
+});
+

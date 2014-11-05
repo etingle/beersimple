@@ -1,0 +1,66 @@
+body {
+  background:#333;
+}
+
+@-webkit-keyframes spin {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+
+@-o-keyframes spin {
+  from { -o-transform: rotate(0deg); }
+  to { -o-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Loading animation container */
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+}
+
+/* Spin track (outer circle) */
+.loading .track {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  left: 2px;
+  top: 2px;
+  border-radius: 32px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Spinning circle (inner circle) */
+.loading .maskedCircle {
+  width: 55px;
+  height: 55px;
+  border-radius: 60px;
+  border: 3px solid white;
+}
+
+/* Spinning circle mask */
+.loading .mask {  
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+}
+
+/* Spinner */
+.loading .spinner {
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  width: 58px;
+  height: 58px;
+  -webkit-animation: spin 1s infinite linear;
+  -o-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+}

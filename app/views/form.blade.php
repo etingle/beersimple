@@ -5,3 +5,5 @@
     <input type="file" accept="image/*" capture="camera" name="picture"/>
     <input type="submit">
 </form>
+
+
