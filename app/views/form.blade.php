@@ -1,3 +1,4 @@
+@extends('_master')
 <form action="{{ url('output') }}"
       method="POST"
       enctype="multipart/form-data">

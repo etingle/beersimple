@@ -22,13 +22,29 @@ $app = new Illuminate\Foundation\Application;
 | so you can just specify a machine name for the host that matches a
 | given environment, then we will automatically detect it for you.
 |
-*/
+
 
 $env = $app->detectEnvironment(array(
 
 	'local' => array('*'),
 
 ));
+*/
+
+$env = $app->detectEnvironment(function() {
+
+    # See if there's an environment.php file...
+    # If it exists, get environment string from there
+    if(file_exists(__DIR__.'/../environment.php')) {
+        return require __DIR__.'/../environment.php';
+    }
+    # If not found, assume production
+    else {
+        return 'production';
+    }
+
+});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -71,3 +87,6 @@ require $framework.'/Illuminate/Foundation/start.php';
 */
 
 return $app;
+
+
+
