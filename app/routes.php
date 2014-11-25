@@ -73,7 +73,68 @@ Route::post('/signup',
 
 Route::get('/',function(){
 
-	return View::make('form');
+
+return Beer::take(5)
+	->orderBy('updated_at','desc')
+	->get();
+
+//return View::make('form');
+
+});
+
+
+Route::get('/load-table',function(){
+
+$beer=new Beer;
+$beer->beer_name="Cactus Queen IPA";
+$beer->style="American IPA";
+$beer->brewery="Yellow Rose Brewing Company";
+$beer->abv="N/A";
+$beer->save();
+
+$beer=new Beer;
+$beer->beer_name="Wildcatter's Crude Stout";
+$beer->style="American Stout";
+$beer->brewery="Yellow Rose Brewing Company";
+$beer->abv="N/A";
+$beer->save();
+
+$beer=new Beer;
+$beer->beer_name="Amber	Vienna"; 
+$beer->style="Lager";
+$beer->brewery="Abita Brewing Co.";
+$beer->abv="4.50";
+$beer->save();
+
+$beer=new Beer;
+$beer->beer_name="Turbodog";
+$beer->style="English Brown Ale";
+$beer->brewery="Abita Brewing Co.";
+$beer->abv="5.60";
+$beer->save();
+
+$beer=new Beer;
+$beer->beer_name="Purple Haze";
+$beer->style="Fruit / Vegetable Beer";
+$beer->brewery="Abita Brewing Co.";
+$beer->abv="4.20";
+$beer->save();
+
+$beer=new Beer;
+$beer->beer_name="Wheat";
+$beer->style="American Adjunct Lager";
+$beer->brewery="Abita Brewing Co.";
+$beer->abv="4.20";
+$beer->save();
+
+$beer=new Beer;
+$beer->beer_name="Golden";
+$beer->brewery="Abita Brewing Co.";
+$beer->style="American Pale Lager";
+$beer->abv="4.20";
+$beer->save();
+
+	//return View::make('form');
 
 });
 

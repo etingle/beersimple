@@ -22,8 +22,11 @@ class CreateBeersTable extends Migration {
     	$table->string('abv');
     	$table->float('rating');
     	$table->integer('number_of_ratings');
+   	    $table->timestamps();
+
     	});
 	}
+
 	/**
 	 * Reverse the migrations.
 	 *
