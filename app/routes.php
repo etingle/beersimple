@@ -44,6 +44,12 @@ Route::get('/logout', function() {
 });
 
 
+Route::get('/beer', 'BeerController@getIndex');
+
+Route::get('/beer/{id}','BeerController@getBeerInfo');
+
+
+
 Route::post('/signup', 
     array(
         'before' => 'csrf', 
@@ -74,11 +80,16 @@ Route::post('/signup',
 Route::get('/',function(){
 
 
-return Beer::take(5)
+if (Auth::check())
+{
+echo Auth::id();
+}
+ $beer=Beer::with('rating')
 	->orderBy('updated_at','desc')
 	->get();
-
-//return View::make('form');
+print_r($beer);
+//echo $beer->rating->rating;
+return View::make('index');
 
 });
 

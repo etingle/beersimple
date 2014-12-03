@@ -10,7 +10,7 @@
 <body>
 	<div id="main">
 		<div class="header">
-		@yield('header')
+		<h1>@yield('header')</h1>
 		@if(Auth::check())
     	<a href='/logout'>Log out {{ Auth::user()->email; }}</a>
 		@else 
