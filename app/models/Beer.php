@@ -30,21 +30,17 @@ public static function search_id($id) {
         if($id) {
 			if(Auth::check()){
 
+            	$beer = Beer::with('rating')
+            	->where('id','=',"$id")
+				->get();
 
-			//	$beers = Beer::where('id','=',"$id")->get();
-            $beers = Beer::with('rating')
-			->get();
-
-            
-            //->where('id','=',"$id")
-            //->andWhere('rating',function($q) use($id) {
-            //	$q->where('user_id','=',"$id");
-            
-            print_r($beers);
-            //echo $beers->rating->rating;
+			}
+         	else { 
+         		$beer=Beer::where('id','=',"$id")
+         		->get();
          	}
    
-       		return $beers;
+       	return $beer;
     	}
 
 	}

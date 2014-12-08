@@ -6,13 +6,14 @@ class BeerController extends \BaseController {
 	public function __construct() {
 		# Make sure BaseController construct gets called
 		parent::__construct();
-		$this->beforeFilter('auth', array('except' => 'getIndex'));
+		$this->beforeFilter('auth', array('except' => array('getIndex','getBeerInfo')));
 	}
 
 	public function getIndex() {
 		# Format and Query are passed as Query Strings
-		if ($query){
 			$query  = Input::get('query');
+			if ($query){
+
 			$beers = Beer::search($query);
 		
 			return View::make('beer_result')
@@ -23,11 +24,11 @@ class BeerController extends \BaseController {
 	}
 	public function getBeerInfo($id) {
 
-		$beers = Beer::search_id($id);
-		
+		$beer = Beer::search_id($id);
+			
+	
 		return View::make('beer_index')
-				->with('beers', $beers);
-
+				->with('beer', $beer->first());
 		}
 
 		

@@ -29,7 +29,6 @@
 				<p>
 					{{ $beer['brewery'] }}
 				</p>
-{{ Auth::user() }}
 			</section>
 		@endforeach
 
