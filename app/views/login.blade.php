@@ -1,7 +1,12 @@
 @extends('_master')
 
 
-<h1>Log in</h1>
+@section('header')
+Log in
+@stop
+
+@section('content')
+
 
 {{ Form::open(array('url' => '/login')) }}
 
@@ -14,3 +19,5 @@
     {{ Form::submit('Submit') }}
 
 {{ Form::close() }}
+
+@stop

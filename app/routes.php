@@ -48,6 +48,8 @@ Route::get('/beer', 'BeerController@getIndex');
 
 Route::get('/beer/{id}','BeerController@getBeerInfo');
 
+Route::get('/beer/edit/{id}','BeerController@getBeerEdit');
+Route::post('/beer/edit/{id}','BeerController@postBeerEdit');
 
 
 Route::post('/signup', 
@@ -89,21 +91,22 @@ Route::post('/signup',
     )
 );
 
-Route::get('/',function(){
 
+Route::get('/', 'BeerController@getIndex');
 
-if (Auth::check())
-{
-echo Auth::id();
-}
- $beer=Beer::with('rating')
-	->orderBy('updated_at','desc')
-	->get();
-print_r($beer);
+//Route::get('/',function(){
+
+//if (Auth::check())
+//{
+//echo Auth::id();
+//}
+// $beer=Beer::with('rating')
+//	->orderBy('updated_at','desc')
+//	->get();
 //echo $beer->rating->rating;
-return View::make('index');
+//return View::make('index');
 
-});
+//});
 
 
 Route::get('/load-table',function(){

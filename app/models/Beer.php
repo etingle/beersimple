@@ -39,8 +39,8 @@ public static function search_id($id) {
          		$beer=Beer::where('id','=',"$id")
          		->get();
          	}
-   
-       	return $beer;
+   		//print_r($beer);
+       	return $beer->first();
     	}
 
 	}

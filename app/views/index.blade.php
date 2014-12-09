@@ -1,23 +1,28 @@
 @extends('_master')
 
-@section('title')
-	Welcome to BeerSimple
-@stop
-
 @section('header')
-BeerSimple
+	Welcome to BeerSimple
 @stop
 
 @section('content')
 
-	{{ Form::open(array('url' => '/beer', 'method' => 'GET')) }}
+	@foreach($beers as $beer)
+			<section class='beer'>
 
-		{{ Form::label('query','Search') }}
+				<h2><a href="/beer/{{$beer['id']}}">{{ $beer['beer_name'] }}</a></h2>
 
-		{{ Form::text('query'); }}
+				<p>
+					{{ $beer['style'] }}
+				</p>
 
-		{{ Form::submit('Search'); }}
+				<p>
+					{{ $beer['brewery'] }}
+				</p>
+			</section>
+		@endforeach
 
-	{{ Form::close() }}
+
 
 @stop
+
+

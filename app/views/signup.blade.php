@@ -1,7 +1,11 @@
 @extends('_master')
 
 
-<h1>Sign up</h1>
+@section('header')
+Sign up</h1>
+@stop
+
+@section('content')
 
 {{ Form::open(array('url' => '/signup')) }}
 
@@ -32,3 +36,4 @@
     {{ Form::submit('Submit') }}
 
 {{ Form::close() }}
+@stop
