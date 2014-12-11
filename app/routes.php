@@ -43,10 +43,19 @@ Route::get('/logout', function() {
 
 });
 
+Route::post('/test',function(){
+	$rating=Input::get('rating');
+	$review=Input::get('review');
+
+echo $rating;
+echo $review;
+});
 
 Route::get('/beer', 'BeerController@getIndex');
 
 Route::get('/beer/{id}','BeerController@getBeerInfo');
+Route::post('/beer/{id}','BeerController@postBeerInfo');
+
 
 Route::get('/beer/edit/{id}','BeerController@getBeerEdit');
 Route::post('/beer/edit/{id}','BeerController@postBeerEdit');
