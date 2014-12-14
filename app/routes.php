@@ -51,7 +51,7 @@ echo $rating;
 echo $review;
 });
 
-Route::get('/beer', 'BeerController@getIndex');
+Route::any('/beer', 'BeerController@getIndex');
 
 Route::get('/beer/{id}','BeerController@getBeerInfo');
 Route::post('/beer/{id}','BeerController@postBeerInfo');
@@ -101,7 +101,7 @@ Route::post('/signup',
 );
 
 
-Route::get('/', 'BeerController@getIndex');
+Route::any('/', 'BeerController@getIndex');
 
 //Route::get('/',function(){
 

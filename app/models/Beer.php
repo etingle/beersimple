@@ -13,13 +13,17 @@ public static function search($query) {
             $beers = Beer::where('beer_name','LIKE',"%$query%")
             ->orWhere('style', 'LIKE', "%$query%")
             ->orWhere('brewery', 'LIKE', "%$query%")
-            ->get();
+            ->paginate(10);
+            //$beers->setBaseUrl('beer?query='.$query.'&');
+            //->get();
+            //$beers=Beer::paginate(1);
+            //->get();
             # Note on what `use` means above:
             # Closures may inherit variables from the parent scope.
             # Any such variables must be passed to the `use` language construct.
         } else {
 			$beers=Beer::take(5)
-			->orderBy('updated_at','desc')
+			->orderBy('rating_avg','desc')
 			->get();
    		}
         return $beers;
@@ -27,19 +31,23 @@ public static function search($query) {
 
 public static function search_id($id) {
         # If there is a query, search the library with that query
+
         if($id) {
-			if(Auth::check()){
-
-            	$beer = Beer::with('rating')
-            	->where('id','=',"$id")
-				->get();
-
-			}
-         	else { 
-         		$beer=Beer::where('id','=',"$id")
+        	$beer=Beer::with('rating')
+        		->where('id','=',"$id")
          		->get();
-         	}
-       
+			//if(Auth::check()){
+				
+
+            	//$beer = Beer::with(array('rating'=>function($query)
+            	//{
+            	//	$query->where('user_id','=',Auth::id());
+            	//}))
+            	//->where('id','=',"$id")
+				//->get();
+
+			
+       print_r($beer);
        	return $beer->first();
     	}
 
@@ -65,11 +73,7 @@ public static function search_id($id) {
 				->get();
 
 				$count=$collection->count();
-				$rating_avg=($collection->sum('rating'))/$count;
-				echo "test";
-				echo $rating_avg;	
-				echo $count;
-				echo "test";			
+				$rating_avg=($collection->sum('rating'))/$count;			
 
 				$beer=Beer::where('id','=',"$id")
 				->first();

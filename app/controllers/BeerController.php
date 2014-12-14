@@ -25,25 +25,20 @@ class BeerController extends \BaseController {
 		}
 	public function getBeerInfo($id) {
 		$beer = Beer::search_id($id);
+
 		$rating=false;
 		$review=false;
-		print_r($beer);
 		//echo $beer->rating()->rating;
 		if (Auth::check()){
-			if ($beer->rating()->first()){
-				if ($beer->rating()->first()->rating){
-					$rating=$beer->rating()->first()->rating;
+
+				foreach($beer->rating as $key=>$ratings){
+					if ($ratings->user_id=Auth::id()){
+					 $rating=$ratings->rating;
+					 $review=$ratings->review;
+					 unset($$beer->rating[$key]);
+					}
 				}
-				else {
-					$rating=false;
-				}
-				if ($beer->rating()->first()->review){
-					$review=$beer->rating()->first()->review;
-				}
-				else {
-					$review=false;
-				}
-			}
+				
 		}
 
 		return View::make('beer_index')
@@ -53,7 +48,6 @@ class BeerController extends \BaseController {
 		}
 
 public function postBeerInfo($id) {
-		$test=Input::all();
 		
 		$rating  = Input::get('rating',false);
 		$review  = Input::get('review',false);
@@ -64,23 +58,13 @@ public function postBeerInfo($id) {
 		$beer = Beer::rate_beer($id);
 
 		if (Auth::check()){
-			if ($beer->rating()->first()){
-				if ($beer->rating()->first()->rating){
-					$rating=$beer->rating()->first()->rating;
+				foreach($beer->rating as $ratings){
+					 $rating=$ratings->rating;
+					 $review=$ratings->review;
 				}
-				else {
-					$rating=false;
-				}
-				if ($beer->rating()->first()->review){
-					$review=$beer->rating()->first()->review;
-				}
-				else {
-					$review=false;
-				}
-			}
+				
 		}
-		echo $rating;
-		echo $review;
+		
 		return View::make('beer_index')
 				->with('beer', $beer)
 				->with('rating',$rating)
