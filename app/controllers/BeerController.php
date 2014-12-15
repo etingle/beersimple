@@ -24,43 +24,64 @@ class BeerController extends \BaseController {
 		
 		}
 	public function getBeerInfo($id) {
-		$beer = Beer::search_id($id);
-
+		$return_array = Beer::search_id($id);
+		$beer=$return_array[0];
+		$ratings=$return_array[1];
+//print_r($beer->rating[0]);
+//echo "<br/><br/>";
 		$rating=false;
 		$review=false;
 		//echo $beer->rating()->rating;
 		if (Auth::check()){
 
-				foreach($beer->rating as $key=>$ratings){
-					if ($ratings->user_id=Auth::id()){
-					 $rating=$ratings->rating;
-					 $review=$ratings->review;
-					 unset($$beer->rating[$key]);
-					}
+
+				foreach($ratings as $key=>$individual_rating){
+//					print_r($beer);
+					if (isset($individual_rating->user_id) && ($individual_rating->user_id===Auth::id())){
+						$rating=$individual_rating->rating;
+						$review=$individual_rating->review;
+						unset($ratings[$key]);
+
+						}
 				}
 				
 		}
+echo "<br/><br/>";
 
+//unset($beer->rating[1]);
+print_r($beer);
+echo "<br/><br/>";
+print_r($ratings);
+
+//echo "TEST ".$beers[0]->beer_name;
 		return View::make('beer_index')
 				->with('beer', $beer)
 				->with('rating',$rating)
-				->with('review',$review);
+				->with('review',$review)
+				->with('ratings',$ratings);
 		}
 
 public function postBeerInfo($id) {
 		
 		$rating  = Input::get('rating',false);
 		$review  = Input::get('review',false);
-		//echo $rating;
-		//echo $review;
-//		$beer = Beer::rate_beer($id,$rating,$review);
-
-		$beer = Beer::rate_beer($id);
-
+		echo $rating;
+		echo $review;
+		$return_array = Beer::rate_beer($id,$rating,$review);
+		//$return_array = Beer::search_id($id);
+		$beer=$return_array[0];
+		$ratings=$return_array[1];
+		
+		
 		if (Auth::check()){
-				foreach($beer->rating as $ratings){
-					 $rating=$ratings->rating;
-					 $review=$ratings->review;
+				foreach($ratings as $key=>$individual_rating){
+//					print_r($beer);
+					if (isset($individual_rating->user_id) && ($individual_rating->user_id===Auth::id())){
+						$rating=$individual_rating->rating;
+						$review=$individual_rating->review;
+						unset($ratings[$key]);
+
+						}
 				}
 				
 		}
@@ -68,7 +89,9 @@ public function postBeerInfo($id) {
 		return View::make('beer_index')
 				->with('beer', $beer)
 				->with('rating',$rating)
-				->with('review',$review);
+				->with('review',$review)
+				->with('ratings',$ratings);
+
 		}
 
 		

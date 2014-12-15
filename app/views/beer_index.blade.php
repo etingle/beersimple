@@ -14,28 +14,28 @@
 	@else
 			<section class='beer'>
 
+@foreach($beer as $beer)
+				<h2>{{ $beer->beer_name }}</h2>
 
-				<h2>{{ $beer['beer_name'] }}</h2>
-
 				<p>
-					Style: {{ $beer['style'] }}
+					Style: {{ $beer->style }}
 				</p>
 				<p>
-					ABV: {{ $beer['abv'] }} @if ($beer['abv']!="N/A") {{ "%" }} @endif
+					ABV: {{ $beer->abv }} @if ($beer->abv!="N/A") {{ "%" }} @endif
 				</p>
 				<p>
-					Brewer: {{ $beer['brewery'] }}
+					Brewer: {{ $beer->brewery }}
 				</p>
 				<p>
-				Rating: {{ $beer['rating_avg'] }} No. of Ratings: {{ $beer['number_of_ratings'] }}
+				Rating: {{ $beer->rating_avg }} No. of Ratings: {{ $beer->number_of_ratings }}
 				</p>
 				<p>
 				</p>
-
+@endforeach
 @if (Auth::check())
 
 
-<form class="pure-form" method="post" action="/beer/{{$beer['id']}}">
+<form class="pure-form" method="post" action="/beer/{{$beer->id}}">
 	{{ Form::token() }}
 <div class="review">
 <fieldset class="rating">
@@ -54,6 +54,12 @@
 </div>
 </form>
 
+@foreach($ratings as $individual_rating)
+<p>{{ $individual_rating->username}}
+<p>{{ $individual_rating->rating }}</p>
+<p>{{ $individual_rating->review }}</p>
+
+@endforeach
 @endif
 
 			</section>

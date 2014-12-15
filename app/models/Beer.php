@@ -33,9 +33,23 @@ public static function search_id($id) {
         # If there is a query, search the library with that query
 
         if($id) {
-        	$beer=Beer::with('rating')
-        		->where('id','=',"$id")
-         		->get();
+        	$beers=DB::table('beers')
+        		->where('beers.id','=',$id)
+        		->select('beers.id','beers.beer_name','beers.style','beers.brewery','beers.abv','beers.rating_avg','beers.number_of_ratings')
+        		->get();
+
+        	$ratings=DB::table('ratings')
+        		->where('ratings.beer_id','=',$id)
+        		->join('users','users.id','=','ratings.user_id')
+        		->select('ratings.rating','ratings.review','ratings.user_id','users.username')
+        		->get();
+        	
+        	//$beer=Beer::with('rating',array('user'=>function($query)
+        	//{
+        	//	$query->where('beer_id','=',$id);
+        	//})
+        	//	->where('id','=',"$id")
+         	//	->get();
 			//if(Auth::check()){
 				
 
@@ -45,10 +59,13 @@ public static function search_id($id) {
             	//}))
             	//->where('id','=',"$id")
 				//->get();
+//print_r($beer);
+        		$return_array=array($beers,$ratings);
+        		echo "TEST";
+        		print_r($return_array);
+        		        		echo "TEST";
 
-			
-       print_r($beer);
-       	return $beer->first();
+		       	return $return_array;
     	}
 
 	}
@@ -84,16 +101,27 @@ public static function search_id($id) {
 //					->update(array('review'=>$review,'rating'=>$rating));
 
             	
-            	$beer = Beer::with('rating')
-            		->where('id','=',"$id")
-					->get();
 
+				$beers=DB::table('beers')
+        			->where('beers.id','=',$id)
+        			->select('beers.id','beers.beer_name','beers.style','beers.brewery','beers.abv','beers.rating_avg','beers.number_of_ratings')
+        			->get();
+
+        		$ratings=DB::table('ratings')
+        			->where('ratings.beer_id','=',$id)
+        			->join('users','users.id','=','ratings.user_id')
+        			->select('ratings.rating','ratings.review','ratings.user_id','users.username')
+        			->get();
+
+            	
 			}
          	else { 
-         		$beer=Beer::where('id','=',"$id")
+         		$beers=DB::table('beers')
+         		->where('id','=',"$id")
          		->get();
          	}
-       	return $beer->first();
+         	$return_array=array($beers,$ratings);
+       	return $return_array;
     	}
 
 	}
