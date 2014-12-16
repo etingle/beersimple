@@ -6,15 +6,12 @@
 
 @section('content')
 
-	<h1>Beers</h1>
-
-
 	@if($query)
-		<h2>You searched for {{{ $query }}}</h2>
+		<h1 class="beer_title">You searched for {{{ $query }}}</h1>
 	@endif
 
 	@if(sizeof($beers) == 0)
-		No results
+		<h2 class="beer_title">No results</h2>
 	@else
 
 		@foreach($beers as $beer)

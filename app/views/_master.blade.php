@@ -14,7 +14,7 @@
 	@endif
 	<div id="main">
 		<div class="header">
-		<h1>@yield('header')</h1>
+			<div class="search_login">
 		{{ Form::open(array('url' => '/beer', 'method' => 'GET')) }}
 
 		{{ Form::text('query'); }}
@@ -38,11 +38,12 @@
 			@endif
 		@endif
 	</div>
+		<h1>@yield('header')</h1>
+		
 </div>
+</div>
+
 <div class="content">
-
-
-
     @yield('content')
 </div>
 </body>

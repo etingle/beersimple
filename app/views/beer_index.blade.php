@@ -6,31 +6,33 @@
 
 @section('content')
 
-	<h1>Beers</h1>
+	
 
 	
 	@if(sizeof($beer) == 0)
-That beer doesn't exist!
+<h1 class="beer_title">That beer doesn't exist!</h1>
 	@else
-			<section class='beer'>
+			<section class="beer">
 
 @foreach($beer as $beer)
-				<h2>{{ $beer->beer_name }}</h2>
+				<h2 class="beer_title">{{ $beer->beer_name }}</h2>
 
 				<p>
-					Style: {{ $beer->style }}
+					Style: <span class="beer_value">{{ $beer->style }}</span>
 				</p>
 				<p>
-					ABV: {{ $beer->abv }} @if ($beer->abv!="N/A") {{ "%" }} @endif
+					ABV: <span class="beer_value">{{ $beer->abv }}</span> @if ($beer->abv!="N/A") <span class="beer_value">{{ "%" }}</span> @endif
 				</p>
 				<p>
-					Brewer: {{ $beer->brewery }}
+					Brewer: <span class="beer_value">{{ $beer->brewery }}</span>
 				</p>
 				<p>
-				Rating: {{ $beer->rating_avg }} No. of Ratings: {{ $beer->number_of_ratings }}
+				Rating: <span class="beer_value">{{ $beer->rating_avg }}</span>
 				</p>
 				<p>
+				No. of Ratings: <span class="beer_value">{{ $beer->number_of_ratings }}</span>
 				</p>
+				
 @endforeach
 @if (Auth::check())
 
@@ -49,12 +51,14 @@ That beer doesn't exist!
 </div>
 
 <div class="review">
-<textarea cols="50" rows="5" id="review" name="review">{{$review}}</textarea>
+<textarea cols="30" rows="5" id="review" name="review">{{$review}}</textarea>
 <input type="submit" value="Save Review"</input>
 </div>
 </form>
 
+@if(!empty($ratings))
 <p>Other Ratings</p>
+@endif
 @foreach($ratings as $individual_rating)
 <div class="other_reviews">
 <p><span id="other_rating">{{ $individual_rating->rating }} </span><span id="other_review">{{ $individual_rating->review }}</span></p>

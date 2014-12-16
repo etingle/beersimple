@@ -1,13 +1,14 @@
 p {margin:3px;}
-
-
+.beer p{margin:0px;}
+.beer_value {color:#333333;}
+.beer_title {font-weight:normal;}
 h1.loading-title {color:#DDDDDD;
 					text-align: center;
 					position: absolute;
   					top: 20%;
  					left: 35%;
 					}
-
+h2.beer {font-weight:normal;}
 
 .other_reviews {border-top:1px solid #CCCCCC;}
 #other_rating {font-size:120%;
@@ -15,15 +16,20 @@ h1.loading-title {color:#DDDDDD;
 				margin:4px 0px;}
 #other_rating_info {font-size:80%;}
 .review {clear:both;}
-
-
+.review input {display:block;
+				margin:3px 0px 10px 0px;
+				}
 
 
 
 .rating {
     float:left;
 }
-
+.header {float:left;
+			clear:none;
+			display:inline;}
+.search_login {float:left;
+				display:inline;}
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
    follow these rules. Every browser that supports :checked also supports :not(), so
    it doesn’t make the test unnecessarily selective */
