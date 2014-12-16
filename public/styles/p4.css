@@ -1,4 +1,6 @@
 p {margin:3px;}
+body {background-color: #C63D0F;}
+.beer {padding-bottom:5px;}
 .beer p{margin:0px;}
 .beer_value {color:#333333;}
 .beer_title {font-weight:normal;}
@@ -9,7 +11,10 @@ h1.loading-title {color:#DDDDDD;
  					left: 35%;
 					}
 h2.beer {font-weight:normal;}
-
+.beer a{text-decoration: none;
+		color:#577682;}
+.beer h2{margin-top:15px;
+		margin-bottom:5px;}
 .other_reviews {border-top:1px solid #CCCCCC;}
 #other_rating {font-size:120%;
 				color:#d83636;
@@ -20,16 +25,40 @@ h2.beer {font-weight:normal;}
 				margin:3px 0px 10px 0px;
 				}
 
-
+.content {clear:both;
+		padding-top:10px;
+		background-color: #FDF3E7;
+}
+.content h2{font-weight:normal;
+		font-size:1.8em;
+		margin-bottom:5px;
+		}
 
 .rating {
     float:left;
 }
-.header {float:left;
-			clear:none;
-			display:inline;}
-.search_login {float:left;
-				display:inline;}
+.header {display:block;
+		float:left;
+		width: 100%;
+		background-color: #C63D0F;}
+
+.search_login {display:inline;
+	float:left;
+	margin:5px 0px 0px 5px;}
+.search_login a {font-size:80%;
+				float:left;
+				margin-right:15px;
+				}
+.search_login input {width:150px;
+					font-size:80%;}
+.search_login input#search{width:60px;
+							float:left;}
+#header_links {clear:left;}
+h1#title {
+		margin:0px 0px 10px auto;}
+#title a{text-decoration: none;
+		color: #333333;}
+
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
    follow these rules. Every browser that supports :checked also supports :not(), so
    it doesn’t make the test unnecessarily selective */

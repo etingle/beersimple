@@ -18,27 +18,30 @@
 		{{ Form::open(array('url' => '/beer', 'method' => 'GET')) }}
 
 		{{ Form::text('query'); }}
-
-		{{ Form::submit('Search'); }}
+<br>
+		{{ Form::submit('Search',array('id'=>'search')); }}
 
 	{{ Form::close() }}
+				<div id="header_links">
 		@if(Auth::check())
 	  		<a href='/logout'>Log out {{ Auth::user()->username; }}</a>
 	  	@else
 			@if(Request::path()=="login")
-				<a href='/signup'>Sign up</a><br>
+				<a href='/signup'>Sign up</a>
 				<a href='/'>BeerSimple</a>
 
 			@elseif(Request::path()=="signup")
-				<a href='/login'>Log in</a><br>
+				<a href='/login'>Log in</a>
 				<a href='/'>BeerSimple</a>
 			@else
-			    <a href='/signup'>Sign up</a><br>
+			    <a href='/signup'>Sign up</a>
 			    <a href='/login'>Log in</a>
+
 			@endif
 		@endif
 	</div>
-		<h1>@yield('header')</h1>
+	</div>
+		<h1 id="title">@yield('header')</h1>
 		
 </div>
 </div>

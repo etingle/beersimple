@@ -61,10 +61,7 @@ public static function search_id($id) {
 				//->get();
 //print_r($beer);
         		$return_array=array($beers,$ratings);
-        		echo "TEST";
-        		print_r($return_array);
-        		        		echo "TEST";
-
+        		
 		       	return $return_array;
     	}
 

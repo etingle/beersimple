@@ -47,18 +47,11 @@ class BeerController extends \BaseController {
 						} else {
 							$date = strtotime($individual_rating->updated_at);
 						$individual_rating->updated_at=date('M d, Y',$date);
-						echo "DATE TEST-";
-						echo $individual_rating->updated_at;
+						
 						}
 				}
 				
 		}
-echo "<br/><br/>";
-
-//unset($beer->rating[1]);
-print_r($beer);
-echo "<br/><br/>";
-print_r($ratings);
 
 //echo "TEST ".$beers[0]->beer_name;
 		return View::make('beer_index')

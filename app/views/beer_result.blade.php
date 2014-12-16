@@ -1,7 +1,7 @@
 @extends('_master')
 
-@section('title')
-	Beers
+@section('header')
+	<a href="/">BeerSimple</a>
 @stop
 
 @section('content')
