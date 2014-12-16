@@ -10,7 +10,7 @@
 
 	
 	@if(sizeof($beer) == 0)
-		No results
+That beer doesn't exist!
 	@else
 			<section class='beer'>
 
@@ -40,11 +40,11 @@
 <div class="review">
 <fieldset class="rating">
     <legend>Please rate:</legend>
-    <input type="radio" id="star5" name="rating" value="5" @if ($rating==5) {{ "checked" }} @endif/><label for="star5" title="Rocks!">5 stars</label>
-    <input type="radio" id="star4" name="rating" value="4" @if ($rating==4) {{ "checked" }} @endif /><label for="star4" title="Pretty good">4 stars</label>
-    <input type="radio" id="star3" name="rating" value="3" @if ($rating==3) {{ "checked" }} @endif /><label for="star3" title="Meh">3 stars</label>
-    <input type="radio" id="star2" name="rating" value="2" @if ($rating==2) {{ "checked" }} @endif /><label for="star2" title="Kinda bad">2 stars</label>
-    <input type="radio" id="star1" name="rating" value="1" @if ($rating==1) {{ "checked" }} @endif /><label for="star1" title="Sucks big time">1 star</label>
+    <input type="radio" id="star5" name="rating" value="5" @if ($rating==5) {{ "checked" }} @endif/><label for="star5" title="Rocks!"></label>
+    <input type="radio" id="star4" name="rating" value="4" @if ($rating==4) {{ "checked" }} @endif /><label for="star4" title="Pretty good"></label>
+    <input type="radio" id="star3" name="rating" value="3" @if ($rating==3) {{ "checked" }} @endif /><label for="star3" title="Meh"></label>
+    <input type="radio" id="star2" name="rating" value="2" @if ($rating==2) {{ "checked" }} @endif /><label for="star2" title="Kinda bad"></label>
+    <input type="radio" id="star1" name="rating" value="1" @if ($rating==1) {{ "checked" }} @endif /><label for="star1" title="Sucks big time"></label>
 </fieldset>
 </div>
 
@@ -54,10 +54,12 @@
 </div>
 </form>
 
+<p>Other Ratings</p>
 @foreach($ratings as $individual_rating)
-<p>{{ $individual_rating->username}}
-<p>{{ $individual_rating->rating }}</p>
-<p>{{ $individual_rating->review }}</p>
+<div class="other_reviews">
+<p><span id="other_rating">{{ $individual_rating->rating }} </span><span id="other_review">{{ $individual_rating->review }}</span></p>
+<p id="other_rating_info">{{ $individual_rating->username}} - {{ $individual_rating->updated_at }}</span></p>
+</div>
 
 @endforeach
 @endif

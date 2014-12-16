@@ -41,7 +41,7 @@ public static function search_id($id) {
         	$ratings=DB::table('ratings')
         		->where('ratings.beer_id','=',$id)
         		->join('users','users.id','=','ratings.user_id')
-        		->select('ratings.rating','ratings.review','ratings.user_id','users.username')
+        		->select('ratings.rating','ratings.review','ratings.user_id','ratings.updated_at','users.username')
         		->get();
         	
         	//$beer=Beer::with('rating',array('user'=>function($query)
@@ -110,7 +110,7 @@ public static function search_id($id) {
         		$ratings=DB::table('ratings')
         			->where('ratings.beer_id','=',$id)
         			->join('users','users.id','=','ratings.user_id')
-        			->select('ratings.rating','ratings.review','ratings.user_id','users.username')
+        			->select('ratings.rating','ratings.review','ratings.user_id','ratings.updated_at','users.username')
         			->get();
 
             	

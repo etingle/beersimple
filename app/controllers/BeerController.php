@@ -40,8 +40,15 @@ class BeerController extends \BaseController {
 					if (isset($individual_rating->user_id) && ($individual_rating->user_id===Auth::id())){
 						$rating=$individual_rating->rating;
 						$review=$individual_rating->review;
+						
+						//$individual_rating->updated_at=$individual_rating->updated_at;
 						unset($ratings[$key]);
 
+						} else {
+							$date = strtotime($individual_rating->updated_at);
+						$individual_rating->updated_at=date('M d, Y',$date);
+						echo "DATE TEST-";
+						echo $individual_rating->updated_at;
 						}
 				}
 				
