@@ -17,7 +17,7 @@
 		@foreach($beers as $beer)
 			<section class='beer'>
 
-				<h2><a href="/beer/{{$beer['id']}}">{{ $beer['beer_name'] }}</a></h2>
+				<h3><a href="/beer/{{$beer['id']}}">{{ $beer['beer_name'] }}</a></h3>
 
 				<p>
 					{{ $beer['style'] }}

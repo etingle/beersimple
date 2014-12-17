@@ -9,21 +9,47 @@ class BeerController extends \BaseController {
 		$this->beforeFilter('auth', array('except' => array('getIndex','getBeerInfo')));
 	}
 
+
+	public function postDelete() {
+		try {
+			$id=Input::get('id');
+	        $review_to_delete = Rating::where('user_id','=',Auth::id())
+	        ->where('beer_id','=',$id)
+	        ->firstOrFail();
+		    }
+	    catch(exception $e) {
+	        return Redirect::to('/beer/'.$id)->with('flash_message', 'Could not delete beer - not found.');
+	    }
+  	    Rating::destroy($review_to_delete->id);
+	    Beer::update_beer_count($id);
+	    return Redirect::to('/beer/'.$id)->with('flash_message', 'Beer deleted.');
+	}
+
+
 	public function getIndex() {
 		# Format and Query are passed as Query Strings
 			$query  = Input::get('query',false);
-			$beers = Beer::search($query);
 			if($query){
+				$beers = Beer::search($query);
 				return View::make('beer_result')
 					->with('beers', $beers)
 					->with('query', $query);
 			} else {
+				$beers = Beer::search_index();
+				if (is_array($beers)){
+					return View::make('index')
+					->with('beers', $beers[0])
+					->with('my_beers',$beers[1]);
+				} else {
 				return View::make('index')
 					->with('beers', $beers);
+				}
 			}
 		
 		}
 	public function getBeerInfo($id) {
+
+
 		$return_array = Beer::search_id($id);
 		$beer=$return_array[0];
 		$ratings=$return_array[1];
@@ -53,7 +79,7 @@ class BeerController extends \BaseController {
 				
 		}
 
-//echo "TEST ".$beers[0]->beer_name;
+//print_r($beer);
 		return View::make('beer_index')
 				->with('beer', $beer)
 				->with('rating',$rating)
@@ -67,7 +93,13 @@ public function postBeerInfo($id) {
 		$review  = Input::get('review',false);
 		echo $rating;
 		echo $review;
-		$return_array = Beer::rate_beer($id,$rating,$review);
+
+		try {
+				$return_array = Beer::rate_beer($id,$rating,$review);
+		    }
+	    catch(exception $e) {
+	        return Redirect::to('/beer/'.$id)->with('flash_message', 'Could not rate beer - not found.');
+	    }
 		//$return_array = Beer::search_id($id);
 		$beer=$return_array[0];
 		$ratings=$return_array[1];

@@ -7,6 +7,38 @@ class Beer extends Eloquent {
 		return $this->hasMany('Rating');
 	}
 
+public static function search_index(){
+
+		$beers=Beer::take(5)
+			->orderBy('rating_avg','desc')
+			->get();
+		if(Auth::check()){
+				//$my_beer=Beer::with(array('rating'=>function($query)
+        		//{
+        	//		$query->where('user_id','=',Auth::id())
+        	//				->orderBy('ratings.rating','desc');
+        	//	}))
+        	//	->take(5)
+        		//->orderBy('rating','desc')
+         	
+			$my_beer=Beer::with('rating')
+		        		->where('ratings.user_id','=',Auth::id())
+						->join('ratings','beers.id','=','ratings.beer_id')
+						->orderBy('ratings.rating','DESC')
+						->take(5)
+		         		->get();
+        // 		$my_beer = $my_beer->sortBy('ratings.rating');
+         	
+		         //print_r($my_beer);
+         		$beer=array($beers,$my_beer);
+         		return $beer;
+         	} else {
+
+         	return $beers;
+         	}
+         }
+
+
 public static function search($query) {
         # If there is a query, search the library with that query
         if($query) {
@@ -14,18 +46,16 @@ public static function search($query) {
             ->orWhere('style', 'LIKE', "%$query%")
             ->orWhere('brewery', 'LIKE', "%$query%")
             ->paginate(10);
-            //$beers->setBaseUrl('beer?query='.$query.'&');
-            //->get();
-            //$beers=Beer::paginate(1);
-            //->get();
-            # Note on what `use` means above:
-            # Closures may inherit variables from the parent scope.
-            # Any such variables must be passed to the `use` language construct.
+        
         } else {
 			$beers=Beer::take(5)
 			->orderBy('rating_avg','desc')
 			->get();
+			
+		
    		}
+
+
         return $beers;
     }
 
@@ -67,6 +97,22 @@ public static function search_id($id) {
 
 	}
 
+	public static function update_beer_count($id){
+
+$collection=Rating::where('beer_id','=',$id)
+				->get();
+
+				$count=$collection->count();
+				$rating_avg=($collection->sum('rating'))/$count;			
+
+				$beer=Beer::where('id','=',"$id")
+				->first();
+				$beer->rating_avg=$rating_avg;
+				$beer->number_of_ratings=$count;
+				$beer->save();
+
+	}
+
 	public static function rate_beer($id) {
         # If there is a query, search the library with that query
         $review=Input::get('review');
@@ -83,21 +129,9 @@ public static function search_id($id) {
 				$critic->rating=$rating;
 				$critic->save();
 
-				$collection=Rating::where('beer_id','=',$id)
-				->get();
-
-				$count=$collection->count();
-				$rating_avg=($collection->sum('rating'))/$count;			
-
-				$beer=Beer::where('id','=',"$id")
-				->first();
-				$beer->rating_avg=$rating_avg;
-				$beer->number_of_ratings=$count;
-				$beer->save();
-
-//					->update(array('review'=>$review,'rating'=>$rating));
-
-            	
+				Beer::update_beer_count($id);
+				
+     
 
 				$beers=DB::table('beers')
         			->where('beers.id','=',$id)

@@ -52,9 +52,12 @@ echo $review;
 });
 
 Route::any('/beer', 'BeerController@getIndex');
+Route::any('/beer/delete/', 'BeerController@postDelete');
 
 Route::get('/beer/{id}','BeerController@getBeerInfo');
 Route::post('/beer/{id}','BeerController@postBeerInfo');
+
+
 
 
 Route::get('/beer/edit/{id}','BeerController@getBeerEdit');

@@ -2,7 +2,13 @@ p {margin:3px;}
 body {background-color: #C63D0F;}
 .beer {padding-bottom:5px;}
 .beer p{margin:0px;}
-.beer_value {color:#333333;}
+.flash-message{background-color: #7E8F7C;
+			font-size:120%;
+			padding:10px;
+			margin-bottom:10px;
+			text-align: center;
+			color:#FDF3E7;}
+.beer_value {color:#3B3738;}
 .beer_title {font-weight:normal;}
 h1.loading-title {color:#DDDDDD;
 					text-align: center;
@@ -10,11 +16,11 @@ h1.loading-title {color:#DDDDDD;
   					top: 20%;
  					left: 35%;
 					}
-h2.beer {font-weight:normal;}
 .beer a{text-decoration: none;
-		color:#577682;}
-.beer h2{margin-top:15px;
-		margin-bottom:5px;}
+		color:#7E8F7C;}
+.beer h3{margin-top:15px;
+		margin-bottom:0px;
+		font-weight:normal;}
 .other_reviews {border-top:1px solid #CCCCCC;}
 #other_rating {font-size:120%;
 				color:#d83636;
@@ -25,22 +31,42 @@ h2.beer {font-weight:normal;}
 				margin:3px 0px 10px 0px;
 				}
 
-.content {clear:both;
+.content {overflow:hidden;
 		padding-top:10px;
+		padding-bottom:10px;
 		background-color: #FDF3E7;
+		margin-top:15px;
+		border: 2px solid #FDF3E7;
+		border-radius: 15px;
+		box-shadow: 5px 5px 5px #9E310C;
 }
 .content h2{font-weight:normal;
 		font-size:1.8em;
 		margin-bottom:5px;
+		border-bottom: 1px solid #CCCCCC;
 		}
+
+#top5 {float:left;
+	max-width:400px;
+	overflow:hidden;
+		}
+
+#my5 {float:right;
+	max-width:400px;
+	overflow: hidden;}
 
 .rating {
     float:left;
 }
 .header {display:block;
-		float:left;
-		width: 100%;
-		background-color: #C63D0F;}
+		margin: 10px auto 0px auto;
+		background-color: #FDF3E7;
+		border: 2px solid #FDF3E7;
+		border-radius: 15px;
+		box-shadow: 5px 5px 5px #9E310C;
+		text-align:left;
+		max-width: 800px;
+		padding:1em 2em;}
 
 .search_login {display:inline;
 	float:left;
@@ -54,8 +80,10 @@ h2.beer {font-weight:normal;}
 .search_login input#search{width:60px;
 							float:left;}
 #header_links {clear:left;}
+#header_links a{text-decoration: none;
+				color:#3B3738;}
 h1#title {
-		margin:0px 0px 10px auto;}
+		margin:0px 0px 10px 20px;}
 #title a{text-decoration: none;
 		color: #333333;}
 

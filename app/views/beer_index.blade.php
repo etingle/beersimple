@@ -34,6 +34,7 @@
 				</p>
 				
 @endforeach
+
 @if (Auth::check())
 
 
@@ -55,6 +56,11 @@
 <input type="submit" value="Save Review"</input>
 </div>
 </form>
+
+{{ Form::open(array('url' => '/beer/delete/')) }}
+			{{ Form::hidden('id',$beer->id); }}
+			{{ Form::submit('Delete')}}
+		{{ Form::close() }}
 
 @if(!empty($ratings))
 <p>Other Ratings</p>
