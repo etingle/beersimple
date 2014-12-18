@@ -20,7 +20,7 @@ class CreateBeersTable extends Migration {
     	$table->string('style'); 
     	$table->string('brewery');
     	$table->string('abv');
-    	$table->float('rating');
+    	$table->float('rating_avg');
     	$table->integer('number_of_ratings');
    	    $table->timestamps();
 
