@@ -46,6 +46,14 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
+App::missing(function($exception)
+{
+	   return Redirect::to('/')->with('flash_message', 'Page not found.');;
+
+//    return Response::view('index', array(), 404)->with('flash_message', 'Page not found.');;
+});
+
+
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
