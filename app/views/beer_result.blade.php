@@ -28,7 +28,9 @@
 				</p>
 			</section>
 		@endforeach
+<div id="pagination">
 	{{ $beers->appends(array('query'=>$query))->links() }}
+</div>
 	@endif
 
 @stop

@@ -36,15 +36,7 @@ Route::any('/beer/delete/', 'BeerController@postDelete');
 
 Route::get('/beer/{id}','BeerController@getBeerInfo');
 Route::post('/beer/{id}','BeerController@postBeerInfo');
-
-
-
-
-Route::get('/beer/edit/{id}','BeerController@getBeerEdit');
-Route::post('/beer/edit/{id}','BeerController@postBeerEdit');
-
-
-  
+ 
 
 
 Route::any('/', 'BeerController@getIndex');

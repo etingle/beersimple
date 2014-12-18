@@ -30,6 +30,14 @@ h1.loading-title {color:#DDDDDD;
 .review input {display:block;
 				margin:3px 0px 10px 0px;
 				}
+#pagination ul {list-style-type: none;
+			text-align:center;}
+#pagination ul li{display:inline;}
+#pagination ul li a{text-decoration:none;
+					color:#AAAAAA;
+					padding:0px 3px;}
+
+
 
 .content {overflow:hidden;
 		padding-top:10px;
