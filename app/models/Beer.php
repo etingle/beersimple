@@ -103,8 +103,11 @@ $collection=Rating::where('beer_id','=',$id)
 				->get();
 
 				$count=$collection->count();
-				$rating_avg=($collection->sum('rating'))/$count;			
-
+				if ($count==0){
+					$rating_avg=0;
+				} else {
+					$rating_avg=($collection->sum('rating'))/$count;			
+				}
 				$beer=Beer::where('id','=',"$id")
 				->first();
 				$beer->rating_avg=$rating_avg;
