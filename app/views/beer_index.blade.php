@@ -67,8 +67,8 @@
 @endif
 @foreach($ratings as $individual_rating)
 <div class="other_reviews">
-<p><span id="other_rating">{{ $individual_rating->rating }} </span><span id="other_review">{{ $individual_rating->review }}</span></p>
-<p id="other_rating_info">{{ $individual_rating->username}} - {{ $individual_rating->updated_at }}</span></p>
+<p><span id="other_rating">{{{ $individual_rating->rating }}} </span><span id="other_review">{{{ $individual_rating->review }}}</span></p>
+<p id="other_rating_info">{{{ $individual_rating->username}}} - {{ $individual_rating->updated_at }}</span></p>
 </div>
 
 @endforeach
