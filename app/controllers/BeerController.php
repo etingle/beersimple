@@ -62,8 +62,7 @@ class BeerController extends \BaseController {
 
 
 				foreach($ratings as $key=>$individual_rating){
-//					print_r($beer);
-					if (isset($individual_rating->user_id) && ($individual_rating->user_id===Auth::id())){
+						if (isset($individual_rating->user_id) && ($individual_rating->user_id==Auth::id())){
 						$rating=$individual_rating->rating;
 						$review=$individual_rating->review;
 						
