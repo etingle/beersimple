@@ -18,7 +18,7 @@ class BeerController extends \BaseController {
 	        ->firstOrFail();
 		    }
 	    catch(exception $e) {
-	        return Redirect::to('/beer/'.$id)->with('flash_message', 'Could not delete review -  found.');
+	        return Redirect::to('/beer/'.$id)->with('flash_message', 'Could not delete review - review not found.');
 	    }
   	    Rating::destroy($review_to_delete->id);
 	    Beer::update_beer_count($id);
