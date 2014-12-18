@@ -13,7 +13,7 @@ Un-authenticated users can view the beer data, but not individual ratings. Once 
 <http://screencast.com/t/FyJPeHMSfWiM>
 ##Details for Teaching Team
 
-I used Python scrtips to scrape information from a beer website and to generate the seed data for the beer database.
+I used Python scripts to scrape information from a beer website and to generate the seed data for the beer database.
 
 
 ##Outside Code
