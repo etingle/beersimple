@@ -24,32 +24,12 @@ Route::get('mysql-test', function() {
 
 });
 
-Route::get('/signup',
-    array(
-        'before' => 'guest',
-        function() {
-            return View::make('signup');
-        }
-    )
-);
+Route::get('/signup','UserController@getSignup');
+Route::post('/signup','UserController@postSignup');
 
-Route::get('/logout', function() {
 
-    # Log out
-    Auth::logout();
+Route::get('/logout','UserController@getLogout');
 
-    # Send them to the homepage
-    return Redirect::to('/');
-
-});
-
-Route::post('/test',function(){
-	$rating=Input::get('rating');
-	$review=Input::get('review');
-
-echo $rating;
-echo $review;
-});
 
 Route::any('/beer', 'BeerController@getIndex');
 Route::any('/beer/delete/', 'BeerController@postDelete');
@@ -64,47 +44,14 @@ Route::get('/beer/edit/{id}','BeerController@getBeerEdit');
 Route::post('/beer/edit/{id}','BeerController@postBeerEdit');
 
 
-Route::post('/signup', 
-    array(
-        'before' => 'csrf', 
-        function() {
-
-        	$data=Input::all();
-
-            $user = new User;
-            $user->username = Input::get('username');
-            $user->email    = Input::get('email');
-            $user->password = Hash::make(Input::get('password'));
-            $rules=array(
-            	'username'=>array('required','alpha_num','min:3','unique:users,username'),
-            	'email'=>array('required','email','unique:users,email'),
-            	'password'=>'required','min:5','confirmed');
-            $validator = Validator::make($data,$rules);
-            if ($validator->passes()) {
-            	# Try to add the user 
-            	try {
-                	$user->save();
-            	}
-           		# Fail
-           		catch (Exception $e) {
-                	return Redirect::to('/signup')->with('flash_message', 'Sign up failed; please try again.')->withInput();
-            	}
-
-            	# Log the user in
-            	Auth::login($user);
-
-            	return Redirect::to('/')->with('flash_message', 'Welcome to BeerSimple!');
-            } else {
-            	return Redirect::to('/signup')
-            	->withInput()
-            	->withErrors($validator);
-            }
-        }
-    )
-);
+  
 
 
 Route::any('/', 'BeerController@getIndex');
+
+Route::get('/login','UserController@getLogin');
+Route::post('/login','UserController@postLogin');
+
 
 //Route::get('/',function(){
 
@@ -175,45 +122,6 @@ $beer->save();
 	//return View::make('form');
 
 });
-
-
-
-Route::get('/login',
-    array(
-        'before' => 'guest',
-        function() {
-            return View::make('login');
-        }
-    )
-);
-
-Route::post('/login', 
-    array(
-        'before' => 'csrf', 
-        function() {
-
-            $credentials = Input::only('username', 'password');
-            $rules=array(
-            	'username'=>array('exists:users,username'));
-            $validator=Validator::make($credentials,$rules);
-            if ($validator->passes()){
-            	if (Auth::attempt($credentials, $remember = true)) {
-                	return Redirect::intended('/')
-                	->withInput()
-                	->with('flash_message', 'Welcome Back!');
-            	}
-            	else {
-                	return Redirect::to('/login')
-                	->withInput()
-                	->with('flash_message', 'Password failed; please try again.');
-            	}
-            }
-            else {
-               	return Redirect::to('/login')->with('flash_message', 'Username does not exist.');
-            }
-        }
-    )
-);
 
 
 
