@@ -22,7 +22,7 @@ class BeerController extends \BaseController {
 	    }
   	    Rating::destroy($review_to_delete->id);
 	    Beer::update_beer_count($id);
-	    return Redirect::to('/beer/'.$id)->with('flash_message', 'Beer deleted.');
+	    return Redirect::to('/beer/'.$id)->with('flash_message', 'Review deleted.');
 	}
 
 
@@ -62,12 +62,8 @@ class BeerController extends \BaseController {
 
 
 				foreach($ratings as $key=>$individual_rating){
-					print_r($individual_rating);
-					echo "TEST1 ".$individual_rating->user_id;
-					echo "TEST2 ".Auth::id();
-					echo (isset($individual_rating->user_id));
+					
 					if (isset($individual_rating->user_id) && ($individual_rating->user_id==Auth::id())){
-						echo "TEST";
 						$rating=$individual_rating->rating;
 						$review=$individual_rating->review;
 						
@@ -95,8 +91,6 @@ public function postBeerInfo($id) {
 		
 		$rating  = Input::get('rating',false);
 		$review  = Input::get('review',false);
-		echo $rating;
-		echo $review;
 
 		try {
 				$return_array = Beer::rate_beer($id,$rating,$review);
