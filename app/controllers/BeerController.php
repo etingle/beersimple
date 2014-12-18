@@ -62,7 +62,12 @@ class BeerController extends \BaseController {
 
 
 				foreach($ratings as $key=>$individual_rating){
-						if (isset($individual_rating->user_id) && ($individual_rating->user_id==Auth::id())){
+					print_r($individual_rating);
+					echo "TEST1 ".$individual_rating->user_id;
+					echo "TEST2 ".Auth::id();
+					echo (isset($individual_rating->user_id));
+					if (isset($individual_rating->user_id) && ($individual_rating->user_id==Auth::id())){
+						echo "TEST";
 						$rating=$individual_rating->rating;
 						$review=$individual_rating->review;
 						
@@ -107,7 +112,7 @@ public function postBeerInfo($id) {
 		if (Auth::check()){
 				foreach($ratings as $key=>$individual_rating){
 //					print_r($beer);
-					if (isset($individual_rating->user_id) && ($individual_rating->user_id===Auth::id())){
+					if (isset($individual_rating->user_id) && ($individual_rating->user_id==Auth::id())){
 						$rating=$individual_rating->rating;
 						$review=$individual_rating->review;
 						unset($ratings[$key]);
