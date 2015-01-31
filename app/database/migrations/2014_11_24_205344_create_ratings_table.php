@@ -19,7 +19,7 @@ class CreateRatingsTable extends Migration {
 		$table->foreign('user_id')->references('id')->on('users');
 		$table->integer('beer_id')->unsigned();
 		$table->foreign('beer_id')->references('id')->on('beers');
-		$table->tinyInteger('rating');
+		$table->float('rating');
 		$table->string('review');
     	$table->timestamps();
 
