@@ -2,6 +2,9 @@
 
 class Beer extends Eloquent {
 
+    protected $fillable = ['beer_name'];
+
+
 	public function rating(){
 
 		return $this->hasMany('Rating');
