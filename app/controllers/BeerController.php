@@ -7,7 +7,7 @@ class BeerController extends \BaseController {
 		# Make sure BaseController construct gets called
 		parent::__construct();
 		$this->beforeFilter('auth', array('except' => array('getIndex','getBeerInfo')));
-		ini_set('memory_limit', '512M');
+		ini_set('memory_limit', '1024M');
 
 
 	}
@@ -30,6 +30,8 @@ class BeerController extends \BaseController {
 
 
 	public function getIndex() {
+
+
 		# Format and Query are passed as Query Strings
 			$query  = Input::get('query',false);
 			if($query){
