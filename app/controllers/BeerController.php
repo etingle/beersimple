@@ -8,7 +8,7 @@ class BeerController extends \BaseController {
 		parent::__construct();
 		$this->beforeFilter('auth', array('except' => array('getIndex','getBeerInfo')));
 		//ini_set('memory_limit', '1500');
-		ini_set('memory_limit', '1024');
+		//ini_set('memory_limit', '1024');
 
 	}
 
@@ -40,12 +40,15 @@ class BeerController extends \BaseController {
 					->with('beers', $beers)
 					->with('query', $query);
 			} else {
+
 				$beers = Beer::search_index();
 				if (is_array($beers)){
+
 					return View::make('index')
 					->with('beers', $beers[0])
 					->with('my_beers',$beers[1]);
 				} else {
+
 				return View::make('index')
 					->with('beers', $beers);
 				}

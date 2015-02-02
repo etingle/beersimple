@@ -2,19 +2,23 @@
 
 class Beer extends Eloquent {
 
-    protected $fillable = ['beer_name'];
-
-
 	public function rating(){
 
 		return $this->hasMany('Rating');
 	}
 
 public static function search_index(){
+        echo "TEST2";
+        echo "Test3";
+   //$beers = Beer::where('beer_id','=','6');
 
+    # If the "Pre" package is not installed, you should output using print_r instead
+    //print_r($beers);
+        echo "TEST1";
 		$beers=Beer::take(5)
 			->orderBy('rating_avg','desc')
 			->get();
+
 		if(Auth::check()){
 				//$my_beer=Beer::with(array('rating'=>function($query)
         		//{
@@ -64,7 +68,7 @@ public static function search($query) {
 
 public static function search_id($id) {
         # If there is a query, search the library with that query
-
+echo "TEST";
         if($id) {
         	$beers=DB::table('beers')
         		->where('beers.id','=',$id)

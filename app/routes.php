@@ -10,7 +10,20 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('mysql-test', function() {
 
+    # Print environment
+    echo 'Environment: '.App::environment().'<br>';
+	$beers=Beer::take(5)
+			->orderBy('rating_avg','desc')
+			->get();
+    # Use the DB component to select all the databases
+        //$beers = DB::select('select * from beers order by rating_avg limit 5');
+
+    # If the "Pre" package is not installed, you should output using print_r instead
+    print_r($beers);
+
+});
 
 Route::get('/signup','UserController@getSignup');
 Route::post('/signup','UserController@postSignup');
@@ -25,6 +38,10 @@ Route::any('/beer/delete/', 'BeerController@postDelete');
 Route::get('/beer/{id}','BeerController@getBeerInfo');
 Route::post('/beer/{id}','BeerController@postBeerInfo');
  
+//Route::any('/', function(){
+//	echo "TEST";
+//	return "THIS IS A TEST";
+//});
 
 
 Route::any('/', 'BeerController@getIndex');
