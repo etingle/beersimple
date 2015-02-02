@@ -8,12 +8,7 @@ class Beer extends Eloquent {
 	}
 
 public static function search_index(){
-        echo "TEST2";
-        echo "Test3";
-   //$beers = Beer::where('beer_id','=','6');
-
-    # If the "Pre" package is not installed, you should output using print_r instead
-    //print_r($beers);
+        
         echo "TEST1";
 		$beers=Beer::take(5)
 			->orderBy('rating_avg','desc')
